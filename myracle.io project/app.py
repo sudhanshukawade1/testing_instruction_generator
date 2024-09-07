@@ -13,7 +13,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Olama API details (replace these with actual Olama API details)
 OLAMA_API_URL = 'https://cloud.llamaindex.ai/api-key'  # Replace with actual endpoint
-OLAMA_API_KEY = 'llx-IOtImHEcl4UXBFRTG6wId7jJIGYi5mAcOrBnejrMMV43zIbm'  # Replace with your actual Olama API key
+OLAMA_API_KEY = 'insert your api key'  # Replace with your actual Olama API key
 
 def call_olama_api(images, context):
     # Prepare files for the request

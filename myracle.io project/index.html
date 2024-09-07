@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Testing Instructions Generator </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="file"],
+        textarea {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #output {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Testing Instructions Generator</h1>
+
+        <label for="context">Optional Context:</label>
+        <textarea id="context" rows="4" placeholder="Enter optional context here..."></textarea>
+
+        <label for="screenshots">Upload Screenshots:</label>
+        <input type="file" id="screenshots" multiple accept="image/*">
+
+        <button id="submit">Describe Testing Instructions</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById('submit').addEventListener('click', async () => {
+            const context = document.getElementById('context').value;
+            const files = document.getElementById('screenshots').files;
+            const formData = new FormData();
+
+            formData.append('context', context);
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append('screenshots', files[i]);
+            }
+
+            const response = await fetch('/generate-instructions', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('output').textContent = result.instructions;
+        });
+    </script>
+</body>
+</html>
